@@ -8,11 +8,13 @@ const insertionSort = (arr, n) => {
   for (let i = 1; i < n; i++) {
     const current = arr[i];
     let j = i - 1;
+    // Shift elements in the sorted portion [0..i-1] that are greater than current to the right
+    // j >= 0 ensures we don't go past the start of the array
     while (arr[j] > current && j >= 0) {
       arr[j + 1] = arr[j];
-      arr[j] = current;
       j--;
     }
+    arr[j + 1] = current;
   }
   return arr;
 };
