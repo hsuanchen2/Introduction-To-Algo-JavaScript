@@ -14,7 +14,7 @@ const insertionSort = (arr, n) => {
       arr[j + 1] = arr[j];
       j--;
     }
-    arr[j + 1] = current;
+    arr[j] = current; // 找到正確位置後才 insert
   }
   return arr;
 };
@@ -50,3 +50,6 @@ console.log(insertionSort([-3, -1, -7, 2, 0], 5));
 // 8. Mixed large and small numbers
 console.log(insertionSort([1000, -50, 3, 999, -1111], 5));
 // Expected: [-1111, -50, 3, 999, 1000]
+
+// wrong case
+console.log(insertionSort([2, 6, 7, 3], 4));
