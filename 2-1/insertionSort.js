@@ -8,23 +8,22 @@ const insertionSort = (arr, n) => {
   for (let i = 1; i < n; i++) {
     const current = arr[i];
     let j = i - 1;
-    // Shift elements in the sorted portion [0..i-1] that are greater than current to the right
-    // j >= 0 ensures we don't go past the start of the array
     while (arr[j] > current && j >= 0) {
       arr[j + 1] = arr[j];
       j--;
     }
-    arr[j] = current; // 找到正確位置後才 insert
+    arr[j + 1] = current;
   }
-  return arr;
+  return arr; 
 };
 
 // 1. Already sorted array
 console.log(insertionSort([1, 2, 3, 4, 5], 5));
 // Expected: [1, 2, 3, 4, 5]
 
-// 2. Reverse sorted array
+// 2. Reverse sorted array current :3
 console.log(insertionSort([5, 4, 3, 2, 1], 5));
+// [5, 5, 3, 2, 1] => [4, 5, 3, 2, 1] => [4, 5, 5, 2, 1] => [4, 4, 5 ,2 , 1] => [3, 4, 5, 2, 1] ....
 // Expected: [1, 2, 3, 4, 5]
 
 // 3. Random unsorted array
