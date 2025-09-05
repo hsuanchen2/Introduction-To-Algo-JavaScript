@@ -8,9 +8,11 @@ void insertionSort(int arr[], int n)
         int j = i - 1;
         while (arr[j] > currentValue & j >= 0)
         {
-        }
+                }
     }
 }
 int main()
 {
+    // TODO:
+    insertionSort()
 }
