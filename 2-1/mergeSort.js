@@ -1,3 +1,0 @@
-const insertionSort = (arr, n) => {
-    
-}
