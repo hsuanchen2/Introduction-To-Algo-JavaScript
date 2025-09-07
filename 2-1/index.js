@@ -97,7 +97,40 @@ const addBinary = (arr1, arr2, n) => {
   return cArray;
 };
 
-console.log(addBinary([1, 0, 0], [0, 1, 0], 3)); // 測資1
-console.log(addBinary([1, 1, 0], [1, 0, 0], 3)); // 測資2
-console.log(addBinary([1, 1, 1, 1], [1, 0, 0, 0], 4)); // 測資3
-console.log(addBinary([1, 1], [1, 1], 2)); // 測資4
+// console.log(addBinary([1, 0, 0], [0, 1, 0], 3));
+// console.log(addBinary([1, 1, 0], [1, 0, 0], 3));
+// console.log(addBinary([1, 1, 1, 1], [1, 0, 0, 0], 4));
+// console.log(addBinary([1, 1], [1, 1], 2));
+
+/**
+ * 2.2-1
+ * Selection Sort - my first version
+ */
+
+const selectionSort = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    // 在第2層迴圈結束後再交換
+    if (minIndex !== i) {
+      // 代表最小值的index 有被更新過，交換位置。
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+  }
+  return arr;
+};
+
+console.log(selectionSort([])); // 空陣列
+console.log(selectionSort([7])); // 單一元素
+console.log(selectionSort([5, 5, 5, 5])); // 所有元素相同
+console.log(selectionSort([9, 8, 7, 6, 5])); // 完全遞減序列
+console.log(selectionSort([1, 2, 3, 4, 5])); // 已經排序好
+console.log(selectionSort([3, -1, 0, -3, 2])); // 混合正數和負數
+console.log(selectionSort([1000, -1000, 500, -500, 0]));
+console.log(selectionSort([2, 3, 2, 1, 3, 1])); // 有重複值
+console.log(selectionSort([10, -10, 10, -10])); // 重複的正負數
+console.log(selectionSort([42, 17, 8, 99, -1, 0, 100, -42]));
