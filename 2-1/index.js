@@ -124,13 +124,36 @@ const selectionSort = (arr) => {
   return arr;
 };
 
-console.log(selectionSort([])); // 空陣列
-console.log(selectionSort([7])); // 單一元素
-console.log(selectionSort([5, 5, 5, 5])); // 所有元素相同
-console.log(selectionSort([9, 8, 7, 6, 5])); // 完全遞減序列
-console.log(selectionSort([1, 2, 3, 4, 5])); // 已經排序好
-console.log(selectionSort([3, -1, 0, -3, 2])); // 混合正數和負數
-console.log(selectionSort([1000, -1000, 500, -500, 0]));
-console.log(selectionSort([2, 3, 2, 1, 3, 1])); // 有重複值
-console.log(selectionSort([10, -10, 10, -10])); // 重複的正負數
-console.log(selectionSort([42, 17, 8, 99, -1, 0, 100, -42]));
+// merge sort
+// [7, 3, 2, 6, 0, 1, 5, 4]
+// [1, 2, 3, 4, 5]
+const mergeSort = (nums) => {
+  // divide, 答案 base case 後開始 conquer
+  if (nums.length <= 1) return nums; // 但理論上 merge sort 不應該有空陣列傳入
+  const midIndex = Math.floor(nums.length / 2);
+  const leftArray = nums.slice(0, midIndex);
+  const rightArray = nums.slice(midIndex);
+  // conquer
+  return merge(mergeSort(leftArray), mergeSort(rightArray)); // [3] , [7] => [3,7]
+};
+
+// 合併左右陣列，並排序
+const merge = (leftArray, rightArray) => {
+  // [] , [10]
+  // keep comparing the first element of each array, push the smaller one and remove it.
+  const sortedArray = [];
+  while (leftArray.length && rightArray.length) {
+    if (leftArray[0] <= rightArray[0]) {
+      sortedArray.push(leftArray[0]);
+      leftArray.shift();
+    } else {
+      sortedArray.push(rightArray[0]);
+      rightArray.shift();
+    }
+  }
+  return [...sortedArray, ...leftArray, ...rightArray];
+};
+
+console.log(mergeSort([7, 3, 2, 6, 0, 1, 5, 4]));
+console.log(mergeSort([4, 7, 1, 12, 6]));
+console.log(mergeSort([-4, 7, 1, 0, 6, -11, 20, 35]));
