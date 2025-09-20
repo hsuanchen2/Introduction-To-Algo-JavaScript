@@ -1,6 +1,7 @@
 class MyHeap {
   constructor(heap) {
-    this.maxHeap = heap;
+    this.maxHeap = heap === undefined ? [] : [...heap];
+    this.heapify();
   }
   maxHeap;
   left(i) {
@@ -52,8 +53,8 @@ class MyHeap {
     // swap the root and rightmost node
     // remove the rightmost node
     // sift-down the root node
-    if (this.isEmpty) return;
-    this.swap(0, this.maxHeap[this.size]);
+    if (this.isEmpty()) return;
+    this.swap(0, this.size() - 1);
     const rootNode = this.maxHeap.pop(); // O(1)
     // sift down start
     // because it's a max heap, so the root node is definitely smaller than it's children now.
@@ -64,22 +65,43 @@ class MyHeap {
   // sift down from which index
   siftDown(index) {
     let currentIndex = index;
-
     while (true) {
+      let largestIndex = currentIndex;
+      const leftNodeIndex = this.left(currentIndex);
+      const rightNodeIndex = this.right(currentIndex);
+      // check left node
       if (
-        this.left(currentIndex) >= this.size ||
-        this.right(currentIndex) >= this.size
-      )
-        break;
-      if (this.maxHeap[left] > this.maxHeap[right]) {
-        this.swap(currentIndex, this.left(currentIndex));
-        currentIndex = this.left(currentIndex);
-      } else {
-        this.swap(currentIndex, this.right(currentIndex));
-        currentIndex = this.right(currentIndex);
+        leftNodeIndex < this.size() &&
+        this.maxHeap[leftNodeIndex] > this.maxHeap[largestIndex]
+      ) {
+        largestIndex = leftNodeIndex;
       }
+
+      // check right node
+      if (
+        rightNodeIndex < this.size() &&
+        this.maxHeap[rightNodeIndex] > this.maxHeap[largestIndex]
+      ) {
+        largestIndex = rightNodeIndex;
+      }
+
+      // check largest index
+      if (currentIndex === largestIndex) break;
+      this.swap(currentIndex, largestIndex);
+      currentIndex = largestIndex;
     }
+  }
+
+  heapify() {
+    for (let i = this.parent(this.size() - 1); i >= 0; i--) {
+      this.siftDown(i);
+    }
+  }
+
+  logHeap() {
+    console.log(this.maxHeap);
   }
 }
 
 const myHeap = new MyHeap([36, 25, 33, 42, 12, 6]);
+myHeap.logHeap();
